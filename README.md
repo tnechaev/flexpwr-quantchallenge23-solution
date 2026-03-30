@@ -130,29 +130,29 @@ I have a separate project in power trading, so far DA-only and not using generat
 
 ### Transaction cost model
 
-**Exchange fee: 0.10 eur/MWh (ID leg)**
-Source: EPEX SPOT Price List (valid 1 Jan 2015), DE-AT-FR-CH Continuous Intraday Market = €0.10/MWh per side. Our strategy closes a DA position with an ID trade/s, paying the ID leg fee only. The DA leg fee is embedded in the auction clearing mechanism.
+**Exchange fee: 0.10 EUR/MWh (ID leg)**
+Source: EPEX SPOT Price List (valid 1 Jan 2015), DE-AT-FR-CH Continuous Intraday Market = 0.10 EUR/MWh per side. Our strategy closes a DA position with an ID trade/s, paying the ID leg fee only. The DA leg fee is embedded in the auction clearing mechanism.
 
 **Execution cost -- bid-ask: 0.63 eur/MWh**
 Source: Baule & Naumann (2022, MDPI Energies, doi:10.3390/en15176344), using the full EPEX SPOT order book history (2017–2018) for German hourly continuous intraday contracts. They show:
 
-- Mean buying premium vs DA: 0.59 eur/MWh
-- Mean selling premium vs DA: 0.67 eur/MWh
-- Use an average for simplicity: **0.63 eur/MWh**
+- Mean buying premium vs DA: 0.59 EUR/MWh
+- Mean selling premium vs DA: 0.67 EUR/MWh
+- Use an average for simplicity: **0.63 EUR/MWh**
 
 This is the empirically measured average price paid above (or received below) the DA price when working a 100 MWh order through the EPEX SPOT order book during the final liquid trading hours. It inherently captures both bid-ask spread and market impact. 
 
 **On market impact modelling:**
 
-The €0.63/MWh captures bid-ask spread cost only. Permanent market impact, i.e., the post-trade price adjustment after the orders move the book, needs to be added separately. 
+The 0.63 EUR/MWh captures bid-ask and presumably consequent temporary impact. Permanent market impact, i.e., the post-trade price adjustment after the orders move the book, needs to be added separately. 
 - Permanent impact from here 10.48550/arXiv.2009.07892: ~0.10 eur/MWh for 100 MW in liquid hours (very roughly determined from the plot).
 
 | Component | Value | Source |
 |---|---|---|
-| Exchange fee | 0.10 eur/MWh | EPEX SPOT Price List Jan 2015 |
-| Bid-ask | 0.63 eur/MWh | doi:10.3390/en15176344 |
-| Permanent market impact | ~0.10 eur/MWh | 10.48550/arXiv.2009.07892 |
-| **Total** | **0.83 eur/MWh** | |
+| Exchange fee | 0.10 EUR/MWh | EPEX SPOT Price List Jan 2015 |
+| Bid-ask | 0.63 EUR/MWh | doi:10.3390/en15176344 |
+| Permanent market impact | ~0.10 EUR/MWh | 10.48550/arXiv.2009.07892 |
+| **Total** | **0.83 EUR/MWh** | |
 
 **Important caveats**
 - The numbers are NOT from 2021.
@@ -185,11 +185,11 @@ The rolling window uses 30 days of same-hour observations and is shifted by 1 pe
 
 | | A | B | C |
 |---|---|---|---|
-| Gross PnL (eur) | 4,797,842 | 6,540,623 | 3,672,403 |
-| Net PnL (eur) | 4,070,845 | 5,813,543 | 3,467,803 |
+| Gross PnL (EUR) | 4,797,842 | 6,540,623 | 3,672,403 |
+| Net PnL (EUR) | 4,070,845 | 5,813,543 | 3,467,803 |
 | TC drag | 15.2% | 11.1% | 5.9% |
 | Win rate (active) | 69.1% | 63.8% | 73.2% |
-| Max daily drawdown (eur) | −60,336 | −53,661 | -24,169 |
+| Max daily drawdown (EUR) | −60,336 | −53,661 | -24,169 |
 | Avg effective position | 100 MW | 100 MW | ~30 MW |
 | Sharpe/Sortino/Calmar (inflated) | 9.25/37.2/67.5 | 11.18/60.6/108.3 | 11.81/90.0/143.5 |
 
@@ -245,7 +245,7 @@ as the scaling and window choice are calibrated on the same dataset and not vali
 - EPEX M7 order book data for a calibrated, volume-dependent TC model; current exchange fees
 - Real-time forecast feed for live signal
 - OOS regime analysis across 2019–2023 or more
-- Rolling p95(|ΔRE|) normalisation for Strategy C using a trailing historical window
+- Rolling normalisation for Strategy C using a trailing historical window
 - Near-real-time TSO balance data 
 
 ---

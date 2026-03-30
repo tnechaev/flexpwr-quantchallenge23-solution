@@ -674,7 +674,7 @@ def task_2_7(df: pd.DataFrame):
     return hourly, qh, daily_C
 
 
-# ── Task 2.7 – Imbalance Analysis ────────────────────────────────────────────
+# -- Task 2.7: Imbalance Analysis -----------------------------------------------
 
 def task_2_7_imbalance(df: pd.DataFrame, hourly: pd.DataFrame, qh: pd.DataFrame):
     """
