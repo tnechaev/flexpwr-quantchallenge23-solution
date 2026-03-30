@@ -1,6 +1,6 @@
 # FlexPower Quant Challenge – Solution
 
-Did FlexPower Quant Challenge from 2023 for some fun learning. Beware of all limitations described below. 
+Did FlexPower Quant Challenge from 2023 for some fun learning. Beware of all limitations described below. The challenge itself is published here: https://github.com/FlexPwr/QuantChallenge
 
 ## Contents
 - [Project Structure](#project-structure)
@@ -33,7 +33,7 @@ quant_challenge/
 ### Running
 
 ```bash
-python task1/reporting.py
+python3 task1/reporting.py
 # CLI demo prints volumes + PnL, then starts the Flask API
 
 curl http://127.0.0.1:5000/v1/pnl/strategy_1
@@ -52,7 +52,7 @@ PnL sign convention: selling earns +quantity x price; buying costs -quantity x p
 ## Task 2 – Data Analysis
 
 ```bash
-python task2/analysis.py
+python3 task2/analysis.py
 ```
 
 ### 2.1 Total Forecasted Production 2021

@@ -568,10 +568,10 @@ def task_2_7(df: pd.DataFrame):
     ]:
         m = metrics[key]
         lbl = (f"{key}  net €{m['net']/1e6:.2f}M  "
-               f"Sh={m['sharpe']:.1f}  So={m['sortino']:.1f}  Cal={m['calmar']:.1f} DD={m['dd']:.1f} WinRate={m['wr']:.1f}%")
+               f"Sh={m['sharpe']:.1f}  So={m['sortino']:.1f}  Cal={m['calmar']:.1f}  DD={m['dd']:.1f}  WinRate={m['wr']:.1f}%")
         ax.plot(series.index, series.values, lw=2, color=color, label=lbl)
     ax.axhline(0, color="black", lw=0.8, ls="--")
-    ax.set_title("Task 2.7 – Cumulative Net PnL (max 100 MW, 2021)")
+    ax.set_title("Cumulative Net PnL (max 100 MW, 2021)")
     ax.set_ylabel("Cumulative PnL [EUR]")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"€{x/1e6:.1f}M"))
