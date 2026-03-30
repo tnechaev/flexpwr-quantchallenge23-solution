@@ -110,7 +110,7 @@ Rule: charge at DA price minimum, discharge at DA price maximum after that. Tota
 
 ---
 
-## Task 2.7 – Trading Strategies
+## 2.7 Trading Strategies
 
 ## Disclaimer!
 
@@ -133,7 +133,7 @@ I have a separate project in power trading, so far DA-only and not using generat
 **Exchange fee: 0.10 EUR/MWh (ID leg)**
 Source: EPEX SPOT Price List (valid 1 Jan 2015), DE-AT-FR-CH Continuous Intraday Market = 0.10 EUR/MWh per side. Our strategy closes a DA position with an ID trade/s, paying the ID leg fee only. The DA leg fee is embedded in the auction clearing mechanism.
 
-**Execution cost -- bid-ask: 0.63 eur/MWh**
+**Execution cost -- bid-ask: 0.63 EUR/MWh**
 Source: Baule & Naumann (2022, MDPI Energies, doi:10.3390/en15176344), using the full EPEX SPOT order book history (2017–2018) for German hourly continuous intraday contracts. They show:
 
 - Mean buying premium vs DA: 0.59 EUR/MWh
@@ -145,7 +145,7 @@ This is the empirically measured average price paid above (or received below) th
 **On market impact modelling:**
 
 The 0.63 EUR/MWh captures bid-ask and presumably consequent temporary impact. Permanent market impact, i.e., the post-trade price adjustment after the orders move the book, needs to be added separately. 
-- Permanent impact from here 10.48550/arXiv.2009.07892: ~0.10 eur/MWh for 100 MW in liquid hours (very roughly determined from the plot).
+- Permanent impact from here 10.48550/arXiv.2009.07892: ~0.10 EUR/MWh for 100 MW in liquid hours (very roughly determined from the plot).
 
 | Component | Value | Source |
 |---|---|---|
@@ -165,7 +165,7 @@ The 0.63 EUR/MWh captures bid-ask and presumably consequent temporary impact. Pe
 
 **ΔRE = (wind_id + pv_id) − (wind_da + pv_da)** [MW]
 
-Both forecasts are available before trading closes. The sign of ΔRE requires no parameter fitting — it is grounded in supply/demand physics:
+Both forecasts are available before trading closes. The sign of ΔRE is grounded in supply/demand:
 - ΔRE > 0: more supply than DA priced -> ID price falls below DA -> short the spread
 - ΔRE < 0: less supply than expected -> ID price rises above DA -> long the spread
 
@@ -178,7 +178,10 @@ Both forecasts are available before trading closes. The sign of ΔRE requires no
 **Strategy C**: 15-min product, position sizing proportional to how unusual |ΔRE| is relative to the same hour-of-day, using a rolling z-score to account for seasonality.
 z = (|ΔRE| - rolling_mean_same_hour) / rolling_std_same_hour.
 
-scalar = clip(z, 0, 1); 0 = at or below the conditional mean -> no position; 1 = at least one conditional std above the mean -> full 100 MW.
+scalar = clip(z, 0, 1); 
+
+0 = at or below the conditional mean -> no position; 1 = at least one conditional std above the mean -> full 100 MW.
+
 The rolling window uses 30 days of same-hour observations and is shifted by 1 period to avoid look-ahead. This is still in-sample and should be validated OOS.
 
 ### Results

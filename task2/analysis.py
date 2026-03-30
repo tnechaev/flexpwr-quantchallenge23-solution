@@ -577,7 +577,7 @@ def task_2_7(df: pd.DataFrame):
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"€{x/1e6:.1f}M"))
     ax.legend(fontsize=9)
 
-    # ── Figure 2: Signal validation -------------
+    # --- Figure 2: Signal validation -------------
     ax = axes[1]
     sc = ax.scatter(
         hourly["delta_re"] / 1e3, hourly["da_id_spread"],
@@ -595,7 +595,7 @@ def task_2_7(df: pd.DataFrame):
     ax.set_ylabel("Realized DA − ID Price [EUR/MWh]")
     ax.legend(fontsize=10)
 
-    # ── Figure 3: Monthly net PnL — A, B, C --------
+    # --- Figure 3: Monthly net PnL -- A, B, C --------
     ax = axes[2]
     months_lbl = ["Jan","Feb","Mar","Apr","May","Jun",
                   "Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -620,7 +620,7 @@ def task_2_7(df: pd.DataFrame):
     plt.close(fig)
     print("  Saved task2_7_strategy.png")
 
-    # ── Figure 4: Intra-hour momentum ------
+    # -- Figure 4: Intra-hour momentum ------
     # For each QH slot (0--3 within each delivery hour), compute deviation
     # from that hour's mean ID price.
     qh["qh_slot"] = qh.index.minute // 15
@@ -757,7 +757,7 @@ def task_2_7_imbalance(df: pd.DataFrame, hourly: pd.DataFrame, qh: pd.DataFrame)
     lines2, lbl2 = ax2r.get_legend_handles_labels()
     ax.legend(lines1 + lines2, lbl1 + lbl2, fontsize=9)
 
-    fig.suptitle("Imbalance Validation: Position Alignment & Correlation",
+    fig.suptitle("Imbalance Diagnostics: Position Alignment & Correlation",
                  fontsize=13, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(PLOTS_DIR, "task2_7_imbalance_analysis.png"), dpi=150)
