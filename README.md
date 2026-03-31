@@ -6,8 +6,8 @@ Did FlexPower Quant Challenge from 2023 for some fun learning. Beware of all lim
 - [Project Structure](#project-structure)
 - [Task 1 – Reporting Tool](#task-1--minimal-reporting-tool)
 - [Task 2 – Data Analysis](#task-2--data-analysis)
-- [Task 2.7 – Trading Strategies](#task-27--trading-strategies)
-- [Assumptions, Limitations & Next Steps](#assumptions-limitations--next-steps)
+- [Task 2.7 – Trading Strategies](#27-trading-strategies)
+- [Limitations & Next Steps](#limitations--next-steps)
 
 ---
 
