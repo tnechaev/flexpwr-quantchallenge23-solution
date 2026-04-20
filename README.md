@@ -1,6 +1,6 @@
 # FlexPower Quant Challenge – Solution
 
-Did FlexPower Quant Challenge from 2023 for some fun learning. Beware of all limitations described below. The challenge itself is published here: https://github.com/FlexPwr/QuantChallenge
+Did FlexPower Quant Challenge from 2023 for learning about ID strategy development in power markets. Beware of all limitations described below. The challenge itself is published here: https://github.com/FlexPwr/QuantChallenge
 
 ## Contents
 - [Project Structure](#project-structure)
@@ -68,7 +68,7 @@ python3 task2/analysis.py
 
 ### 2.2 Average 24h Profile
 
-Wind: flat with slight nocturnal peak. PV: bell curve peaking at solar noon, zero at night.
+Wind: flat-ish with slight nocturnal peak. PV: bell curve peaking at solar noon, zero at night.
 
 ![Average 24h production profile](task2/plots/task2_2_24h_profile.png)
 
@@ -116,22 +116,19 @@ Rule: charge at DA price minimum, discharge at DA price maximum after that. Tota
 
 Due to the small dataset size, no proper OOS validation/testing is possible, need ideally 3 years or more. This means: everything is kind of in-sample, within one specific year, that also was quite extreme due to the gas crisis. Therefore **all the metrics (Sharpe/Sortino/Calmar) are inflated**. Expect materially lower values in a calmer OOS period, and use them here as a relative strategy-comparison diagnostic only. Strategies and their execution are also simplified. This is to show an idea/prototype of what can be traded and how. 
 
-I have a separate project in power trading, so far DA-only and not using generation forecasts. But there, as I have 10+ years of data, I can (and plan) to test ID and forecast error-based strategies.
-
-
 ### Market structure
 
 **Day-ahead auction:** 12:00 on D1. All bids/asks submitted simultaneously. Exchange publishes a single clearing price per hour at ~13:00. 
 
 **Intraday continuous:** opens 15:00 on D1, closes 5 min before delivery. Two products:
 - ID Hourly: same 1-hour blocks as DA, is intended to offset DA position, one order.
-- ID 15-min: quarter-hour blocks. More liquid, but 4 orders per hour and introduces basis risk vs the hourly DA price.
+- ID 15-min: quarter-hour blocks. More liquid (potentially), but 4 orders (in this data) per hour and introduces basis risk vs the hourly DA price.
 
 
 ### Transaction cost model
 
 **Exchange fee: 0.10 EUR/MWh (ID leg)**
-Source: EPEX SPOT Price List (valid 1 Jan 2015), DE-AT-FR-CH Continuous Intraday Market = 0.10 EUR/MWh per side. Our strategy closes a DA position with an ID trade/s, paying the ID leg fee only. The DA leg fee is embedded in the auction clearing mechanism.
+Source: EPEX SPOT Price List (valid 1 Jan 2015), DE-AT-FR-CH Continuous Intraday Market = 0.10 EUR/MWh per side. Our strategies close a DA position with an ID trade/s, paying the ID leg fee only. The DA leg fee is embedded in the auction clearing mechanism.
 
 **Execution cost -- bid-ask: 0.63 EUR/MWh**
 Source: Baule & Naumann (2022, MDPI Energies, doi:10.3390/en15176344), using the full EPEX SPOT order book history (2017–2018) for German hourly continuous intraday contracts. They show:
@@ -140,7 +137,7 @@ Source: Baule & Naumann (2022, MDPI Energies, doi:10.3390/en15176344), using the
 - Mean selling premium vs DA: 0.67 EUR/MWh
 - Use an average for simplicity: **0.63 EUR/MWh**
 
-This is the empirically measured average price paid above (or received below) the DA price when working a 100 MWh order through the EPEX SPOT order book during the final liquid trading hours. It inherently captures both bid-ask spread and market impact. 
+This is the empirically measured average price paid above (or received below) the DA price when working a 100 MWh order through the EPEX SPOT order book during the final liquid trading hours. It should capture both bid-ask spread and market impact. 
 
 **On market impact modelling:**
 
@@ -234,7 +231,7 @@ Usual metrics like Sharpe/Sortino/Calmar are not reliable and should be treated 
 Need 3+ years with walk-forward folds for proper validation.
 
 **2. Transaction cost model limitations**
-Numbers are used as a rough idea. For permanent market impact, proper modeling is needed. Execution costs like bid-ask also need to be separated by hours and seasons, they are not the same of those. 
+Numbers are used as a rough idea. For permanent market impact, proper modeling is needed. Execution costs like bid-ask also need to be separated by hours and seasons, they are not the same for those. 
 
 **3. Unknown execution price definition**
 Execution price definition (full-session, ID1/ID3 VWAP or something else) is important for TC estimation.

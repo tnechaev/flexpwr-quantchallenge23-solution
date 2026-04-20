@@ -127,18 +127,23 @@ def task_2_2(df: pd.DataFrame):
         ["wind_da_mw","wind_id_mw","pv_da_mw","pv_id_mw"]
     ].mean()
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5), sharey=False)
+    #fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5), sharey=False)
+    fig, ax = plt.subplots(figsize=(8, 5))
 
     # Wind
-    ax1.plot(hourly.index, hourly["wind_da_mw"], color=BLUE,   lw=2, label="Wind DA", marker="o", ms=4)
-    ax1.plot(hourly.index, hourly["wind_id_mw"], color="#4fa3e0", lw=2, ls="--", label="Wind ID", marker="s", ms=4)
-    ax1.set_title("Wind – Average Hourly Profile 2021")
-    ax1.set_xlabel("Hour of Day")
-    ax1.set_ylabel("Average Power [MW]")
-    ax1.set_xticks(range(0, 24, 2))
-    ax1.legend()
+    ax.plot(hourly.index, hourly["wind_da_mw"], color=BLUE,   lw=2, label="Wind DA", marker="o", ms=4)
+    ax.plot(hourly.index, hourly["wind_id_mw"], color="#4fa3e0", lw=2, ls="--", label="Wind ID", marker="s", ms=4)
+    # Solar
+    ax.plot(hourly.index, hourly["pv_da_mw"], color=ORANGE, lw=2, label="PV DA", marker="o", ms=4)
+    ax.plot(hourly.index, hourly["pv_id_mw"], color="#ffb347", lw=2, ls="--", label="PV ID", marker="s", ms=4)
+    ax.set_title("Wind – Average Hourly Profile 2021")
+    ax.set_xlabel("Hour of Day")
+    ax.set_ylabel("Average Power [MW]")
+    ax.set_xticks(range(0, 24, 2))
+    ax.legend()
 
     # Solar
+    """
     ax2.plot(hourly.index, hourly["pv_da_mw"], color=ORANGE, lw=2, label="PV DA", marker="o", ms=4)
     ax2.plot(hourly.index, hourly["pv_id_mw"], color="#ffb347", lw=2, ls="--", label="PV ID", marker="s", ms=4)
     ax2.set_title("Solar – Average Hourly Profile 2021")
@@ -146,6 +151,7 @@ def task_2_2(df: pd.DataFrame):
     ax2.set_ylabel("Average Power [MW]")
     ax2.set_xticks(range(0, 24, 2))
     ax2.legend()
+    """
 
     fig.suptitle("Average Wind & Solar Production over 24 hrs, DE 2021",
                  fontsize=13, fontweight="bold")
